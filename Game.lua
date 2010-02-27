@@ -8,11 +8,9 @@ Game = class('Game', StatefulObject)
 
 -- load some functions using passion's built-in resource manager
 Game.fonts = {
-  title = passion.getFont('fonts/SVBasicManual.ttf', 70),
-  button = passion.getFont('fonts/SVBasicManual.ttf', 40)
+  title = passion.fonts.getFont('fonts/SVBasicManual.ttf', 70),
+  button = passion.fonts.getFont('fonts/SVBasicManual.ttf', 40)
 }
-
-Game.image = passion.getImage('images/image.png')
 
 function Game:initialize()
   super.initialize(self)

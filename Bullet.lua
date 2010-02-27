@@ -2,7 +2,7 @@ require('passion.init')
 
 Bullet = passion.Actor:subclass('Bullet', {hasBody = true})
 
-Bullet.image = passion.getImage('images/image.png')
+Bullet.image = passion.graphics.getImage('images/image.png')
 Bullet.quad1 = passion.graphics.newQuad(  0,32, 16,16 )
 Bullet.quad2 = passion.graphics.newQuad( 16,32, 16,16 )
 Bullet.quad3 = passion.graphics.newQuad( 32,32, 16,16 )

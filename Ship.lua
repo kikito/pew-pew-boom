@@ -2,7 +2,7 @@ require('passion.init')
 require('ShipModule')
 require('ShipSlot')
 
-Ship = passion.Actor:subclass('Ship', {hasBody = true})
+Ship = passion.ActorWithBody:subclass('Ship')
 
 function Ship:initialize(model,x,y)
   super.initialize(self)

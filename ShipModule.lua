@@ -1,6 +1,6 @@
 require('passion.init')
 
-ShipModule = passion.Actor:subclass('ShipModule', {hasBody=true})
+ShipModule = passion.ActorWithBody:subclass('ShipModule')
 
 function ShipModule:initialize(quad, centerX, centerY)
   super.initialize(self)

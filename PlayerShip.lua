@@ -14,18 +14,18 @@ function PlayerShip:initialize(model,x,y)
   super.initialize(self, model, x, y)
 end
 
-function Ship:getObjective()
+function PlayerShip:getObjective()
   return love.mouse.getPosition()
 end
 
-function Ship:draw()
+function PlayerShip:draw()
   local x, y = self:getPosition()
   local model = self.model
   self:drawShapes()
   passion.graphics.drawq(model.quad, x, y, self:getAngle(), 1, 1, model.centerX, model.centerY)
 end
 
-function Ship:update()
+function PlayerShip:update()
   local ox, oy = self:getObjective()
   local x, y = self:getPosition()
   local thrust = self:getThrust()
@@ -70,7 +70,19 @@ function Ship:update()
   end
 end
 
-function Ship:mousepressed(mx,my,button)
+function PlayerShip:keypressed(key)
+  print(key)
+  if(key=='q') then
+    self:freeze()
+  end
+  
+  if(key=='e') then
+    self:unFreeze()
+  end
+end
+
+function PlayerShip:mousepressed(mx,my,button)
+  print(button)
   if(button=='l') then
     self:fire()
   end

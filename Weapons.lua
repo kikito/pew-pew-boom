@@ -17,7 +17,7 @@ end
 
 Cannon = ShipModule:subclass('Cannon')
 
-Cannon.image = passion:getImage('images/image.png')
+Cannon.image = passion.getImage('images/image.png')
 Cannon.quad1 = passion.graphics.newQuad( Cannon.image,  0,48, 16,16 )
 Cannon.quad2 = passion.graphics.newQuad( Cannon.image, 17,48, 16,16 )
 Cannon.quad3 = passion.graphics.newQuad( Cannon.image, 33,48, 16,16 )

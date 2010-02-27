@@ -30,7 +30,7 @@ function ShipModel:initialize(name, centerX, centerY, quad, shapes, slotSpecs, o
   self.snapAngleThreshold = options.directionSnapAngleThreshold or 0.05
 end
 
-ShipModel.image = passion:getImage('images/image.png')
+ShipModel.image = passion.getImage('images/image.png')
 
 ShipModel.lens_culinaris = 
   ShipModel:new("Lens culinaris", 16,16, passion.graphics.newQuad(ShipModel.image, 0,0, 32,32),

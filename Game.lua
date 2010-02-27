@@ -8,11 +8,11 @@ Game = class('Game', StatefulObject)
 
 -- load some functions using passion's built-in resource manager
 Game.fonts = {
-  title = passion:getFont('fonts/SVBasicManual.ttf', 70),
-  button = passion:getFont('fonts/SVBasicManual.ttf', 40)
+  title = passion.getFont('fonts/SVBasicManual.ttf', 70),
+  button = passion.getFont('fonts/SVBasicManual.ttf', 40)
 }
 
-Game.image = passion:getImage('images/image.png')
+Game.image = passion.getImage('images/image.png')
 
 function Game:initialize()
   super.initialize(self)
@@ -42,7 +42,7 @@ function MainMenu:enterState()
     x=150, y=400, width=500,
     cornerRadius=10,
     font=Game.fonts.button,
-    onClick = function(b) passion:exit() end
+    onClick = function(b) passion.exit() end
   })
 end
 
@@ -59,7 +59,7 @@ local Play = Game:addState('Play')
 
 function Play:enterState()
 
-  passion:newWorld(3000, 3000)
+  passion.newWorld(3000, 3000)
 
   self.ship = PlayerShip(ShipModel.lens_culinaris, 100,100)
 
@@ -69,7 +69,7 @@ function Play:enterState()
 end
 
 function Play:exitState()
-  passion:destroyWorld()
+  passion.destroyWorld()
   self.ship:destroy()
   self.ship = nil
 end

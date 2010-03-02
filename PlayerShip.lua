@@ -64,26 +64,12 @@ function PlayerShip:update()
   if(love.keyboard.isDown('d')) then
     self:applyImpulse( -s*strafeThrust, c*strafeThrust )
   end
-  
+
   if(love.keyboard.isDown('a')) then
     self:applyImpulse( s*strafeThrust, -c*strafeThrust )
   end
-end
-
-function PlayerShip:keypressed(key)
-  print(key)
-  if(key=='q') then
-    self:freeze()
-  end
   
-  if(key=='e') then
-    self:unFreeze()
-  end
-end
-
-function PlayerShip:mousepressed(mx,my,button)
-  print(button)
-  if(button=='l') then
+  if(love.mouse.isDown('l')) then
     self:fire()
   end
 end

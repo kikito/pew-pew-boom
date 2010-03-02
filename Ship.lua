@@ -1,6 +1,7 @@
 require('passion.init')
 require('ShipModule')
 require('ShipSlot')
+require('Weapons')
 
 Ship = passion.ActorWithBody:subclass('Ship')
 
@@ -59,5 +60,12 @@ function Ship:draw()
 end
 
 function Ship:fire()
-  
+  local module
+
+  for _,slot in pairs(self.slots) do
+    module = slot.module
+    if(instanceOf(Weapon,module)) then
+      module:fire()
+    end
+  end
 end

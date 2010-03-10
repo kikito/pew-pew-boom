@@ -7,7 +7,7 @@ Bullet.quad1 = passion.graphics.newQuad(Bullet.image,  0,32, 16,16 )
 Bullet.quad2 = passion.graphics.newQuad(Bullet.image, 16,32, 16,16 )
 Bullet.quad3 = passion.graphics.newQuad(Bullet.image, 32,32, 16,16 )
 
-Bullet.fireSound = passion.audio.getSource( 'sfx/pew.wav', 'static' )
+Bullet.fireSound = passion.audio.getSource( 'sfx/pew.mp3', 'static' )
 
 function Bullet:initialize(x,y,angle,level,velX,velY, duration)
   super.initialize(self)
@@ -15,7 +15,7 @@ function Bullet:initialize(x,y,angle,level,velX,velY, duration)
   self:newBody()
 
   self:newRectangleShape(4,7,10,4)
-  
+
   self:setMassFromShapes()
 
   self:setPosition(x,y)
@@ -24,7 +24,7 @@ function Bullet:initialize(x,y,angle,level,velX,velY, duration)
   local c = math.cos(angle)
   local s = math.sin(angle)
 
-  local strength = 2
+  local strength = 1
 
   self:setLinearVelocity(velX, velY)
   self:applyImpulse(c*strength, s*strength)
@@ -33,7 +33,7 @@ function Bullet:initialize(x,y,angle,level,velX,velY, duration)
 
   self.duration = duration
 
-  passion.timer.after(duration, Bullet.destroy, self)
+  self:after(duration, 'destroy')
 
   love.audio.play(Bullet.fireSound)
 

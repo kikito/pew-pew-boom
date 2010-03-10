@@ -16,7 +16,7 @@ function Weapon:fire()
   local x,y=self:getPosition()
   local angle = self:getAngle()
 
-  Bullet:new(x,y,angle,1,velX,velY, 2)
+  Bullet:new(x,y,angle,1,velX,velY, 0.25)
 
   self:pushState('CoolingDown')
 end
@@ -25,12 +25,10 @@ end
 CoolingDown = Weapon:addState('CoolingDown')
 
 function CoolingDown:enterState()
-  passion.timer.after(self.coolDown, Weapon.popState, self)
+  self:after(self.coolDown, 'popState')
 end
 
 function CoolingDown:fire() end -- do nothing
-
-
 
 
 Cannon = Weapon:subclass('Cannon')

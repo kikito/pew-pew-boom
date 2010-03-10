@@ -12,6 +12,7 @@ PlayerShip = Ship:subclass('PlayerShip', {hasBody = true})
 
 function PlayerShip:initialize(model,x,y)
   super.initialize(self, model, x, y)
+  self:observe('mousepressed_l', 'fire')
 end
 
 function PlayerShip:getObjective()
@@ -69,7 +70,7 @@ function PlayerShip:update()
     self:applyImpulse( s*strafeThrust, -c*strafeThrust )
   end
   
-  if(love.mouse.isDown('l')) then
-    self:fire()
-  end
+--  if(love.mouse.isDown('l')) then
+--    self:fire()
+--  end
 end

@@ -61,9 +61,9 @@ function Play:enterState()
 
   self.ship = PlayerShip(ShipModel.lens_culinaris, 100,100)
 
-  self.ship.slots.frontLeft:attach(Cannon:new(3))
+  self.ship.slots.frontLeft:attach(Cannon:new(1))
   self.ship.slots.frontRight:attach(Cannon:new(3))
-  self.ship.slots.back:attach(Thruster:new(3))
+  self.ship.slots.back:attach(Thruster:new(1))
 end
 
 function Play:exitState()

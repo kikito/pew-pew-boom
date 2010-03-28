@@ -3,6 +3,14 @@ require('ShipModule')
 require('ShipSlot')
 require('Weapons')
 
+
+local twoPi = 2.0*math.pi
+
+local normalizeAngle = function(angle)
+  angle = angle % twoPi
+  return (angle < 0 and (angle + twoPi) or angle)
+end
+
 Ship = passion.ActorWithBody:subclass('Ship')
 
 function Ship:initialize(model,x,y)
@@ -44,6 +52,7 @@ function Ship:getThrust()
       thrust = thrust + module:getThrust()
     end
   end
+  return thrust
 end
 
 function Ship:getStrafeThrust()
@@ -54,6 +63,7 @@ function Ship:getStrafeThrust()
       thrust = thrust + module:getStrafeThrust()
     end
   end
+  return thrust
 end
 
 function Ship:getRotation()
@@ -64,6 +74,7 @@ function Ship:getRotation()
       rotation = rotation + module:getRotation()
     end
   end
+  return rotation
 end
 
 function Ship:getObjective()
@@ -75,6 +86,55 @@ function Ship:draw()
   local model = self.model
   self:drawShapes()
   passion.graphics.drawq(model.quad, x, y, self:getAngle(), 1, 1, model.centerX, model.centerY)
+end
+
+function Ship:thrust()
+  local angle = self:getAngle()
+  local c = math.cos(angle)
+  local s = math.sin(angle)
+  local thrust = self:getThrust()
+  self:applyImpulse( c*thrust, s*thrust )
+end
+
+function Ship:strafeLeft()
+  local angle = self:getAngle()
+  local c = math.cos(angle)
+  local s = math.sin(angle)
+  local strafeThrust = self:getStrafeThrust()
+  self:applyImpulse( s*strafeThrust, -c*strafeThrust )
+end
+
+function Ship:strafeRight()
+  local angle = self:getAngle()
+  local c = math.cos(angle)
+  local s = math.sin(angle)
+  local strafeThrust = self:getStrafeThrust()
+  self:applyImpulse( -s*strafeThrust, c*strafeThrust )
+end
+
+function Ship:orientate()
+  local ox, oy = self:getObjective()
+  local x, y = self:getPosition()
+  local rotation = self:getRotation()
+  local angle = self:getAngle()
+  
+  local objectiveAngle = math.atan2(oy-y,ox-x)
+  
+  local differenceAngle = normalizeAngle(objectiveAngle - angle)
+
+  -- if the ship can snap to the objective's direction, then snap
+  if( differenceAngle <= self.model.snapAngleThreshold or 
+      differenceAngle >= twoPi - self.model.snapAngleThreshold
+    ) then
+    self:setAngle(objectiveAngle)
+    self:setAngularVelocity(0)
+  else -- could not snap - rotate using torques
+    if(differenceAngle <= math.pi) then -- counter-clockwise
+      self:setAngularVelocity(rotation)
+    else
+      self:setAngularVelocity(-rotation)
+    end
+  end
 end
 
 function Ship:fire()

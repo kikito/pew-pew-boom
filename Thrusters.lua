@@ -13,9 +13,9 @@ function Thruster:initialize(level)
 end
 
 function Thruster:getThrust()
-  return self.level
+  return self.level * 0.01
 end
 
 function Thruster:getStrafeThrust()
-  return self.level * 0.3
+  return self.level * 0.003
 end

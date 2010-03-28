@@ -25,7 +25,7 @@ function ShipModel:initialize(name, centerX, centerY, quad, shapes, slotSpecs, o
   -- The max angular speed that the ship can get, even with rotational thrusters / gyroscopes
   self.maxAngularVelocity = options.maxAngularVelocity or 0.6
 
-  -- The angle on which the ship "snaps" to the target direction, so it doesn't oscillate
+  -- The angle on which the ship "snaps" to the target direction
   -- Defaults to ~20 degrees
   self.snapAngleThreshold = options.directionSnapAngleThreshold or 0.05
 end
@@ -42,7 +42,7 @@ ShipModel.lens_culinaris =
       back={ x=-13, y=0, angle=0 }
     },
     -- Other stuff
-    { baseThrust=0.01, baseRotation=0.5, maxAngularVelocity=2 }
+    { baseThrust=0.01, baseStrafeThrust=0.01, baseRotation=0.5 }
   )
 
 

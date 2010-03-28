@@ -1,3 +1,5 @@
+require('ShipModule')
+
 Thruster = ShipModule:subclass('Thruster')
 
 Thruster.image = passion.graphics.getImage('images/image.png')
@@ -8,4 +10,12 @@ Thruster.quad3 = passion.graphics.newQuad( Thruster.image, 33,64, 16,16 )
 function Thruster:initialize(level)
   super.initialize(self, Thruster['quad' .. level], 8,8)
   self.level = level
+end
+
+function Thruster:getThrust()
+  return self.level
+end
+
+function Thruster:getStrafeThrust()
+  return self.level * 0.3
 end

@@ -28,8 +28,8 @@ function Ship:initialize(model,x,y)
 
   -- Initialize ship slots
   self.slots = {}
-  for slotName,slotData in pairs(model.slotSpecs) do
-    self.slots[slotName] = ShipSlot:new(self, slotName, slotData)
+  for slotName,slotSpec in pairs(model.slotSpecs) do
+    self.slots[slotName] = ShipSlot:new(self, slotName, slotSpec)
   end
 
   self:setPosition(x,y)
@@ -37,15 +37,33 @@ function Ship:initialize(model,x,y)
 end
 
 function Ship:getThrust()
-  return self.model.baseThrust
+  local thrust = self.model.baseThrust
+  for _,slot in pairs(self.slots) do
+    module = slot.module
+    if(instanceOf(Thruster,module)) then
+      thrust = thrust + module:getThrust()
+    end
+  end
 end
 
 function Ship:getStrafeThrust()
-  return self.model.baseStrafeThrust
+  local thrust = self.model.baseStrafeThrust
+  for _,slot in pairs(self.slots) do
+    module = slot.module
+    if(instanceOf(Thruster,module)) then
+      thrust = thrust + module:getStrafeThrust()
+    end
+  end
 end
 
 function Ship:getRotation()
-  return self.model.baseRotation
+  local rotation = self.model.baseRotation
+  for _,slot in pairs(self.slots) do
+    module = slot.module
+    if(instanceOf(Gyroscope,module)) then
+      rotation = rotation + module:getRotation()
+    end
+  end
 end
 
 function Ship:getObjective()

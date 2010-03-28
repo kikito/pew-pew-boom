@@ -1,5 +1,5 @@
 require('ShipModule')
-require('Bullet')
+require('Projectile')
 
 Weapon = ShipModule:subclass('Weapon')
 
@@ -16,7 +16,7 @@ function Weapon:fire()
   local x,y=self:getPosition()
   local angle = self:getAngle()
 
-  Bullet:new(x,y,angle,1,velX,velY, 0.25)
+  Projectile:new(x,y,angle,self.level,velX,velY, 0.25*self.level)
 
   self:pushState('CoolingDown')
 end

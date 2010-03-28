@@ -6,7 +6,7 @@ require('Weapons')
 
 local twoPi = 2.0*math.pi
 
-local normalizeAngle = function(angle)
+local _normalizeAngle = function(angle)
   angle = angle % twoPi
   return (angle < 0 and (angle + twoPi) or angle)
 end
@@ -120,7 +120,7 @@ function Ship:orientate()
   
   local objectiveAngle = math.atan2(oy-y,ox-x)
   
-  local differenceAngle = normalizeAngle(objectiveAngle - angle)
+  local differenceAngle = _normalizeAngle(objectiveAngle - angle)
 
   -- if the ship can snap to the objective's direction, then snap
   if( differenceAngle <= self.model.snapAngleThreshold or 

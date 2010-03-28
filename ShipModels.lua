@@ -1,18 +1,16 @@
 require('passion.init')
+require('AstroObject')
 
 
-ShipModel = class('ShipModel')
+ShipModel = class('ShipModel', AstroObjectModel)
 
-function ShipModel:initialize(name, centerX, centerY, quad, shapes, slotSpecs, options)
-  self.name = name
-  self.centerX = centerX
-  self.centerY = centerY
-  self.quad = quad
-  self.shapes = shapes
+function ShipModel:initialize(name, centerX, centerY, quad, shapes, slotSpecs, options) 
+  super.initialize(self, name, centerX, centerY, quad, shapes)
+
   self.slotSpecs = slotSpecs
-  
+
   options = options or {}
-  
+
   -- The ship impulse, without thrusters
   self.baseThrust = options.baseThrust or 0.05
 
@@ -44,6 +42,7 @@ ShipModel.lens_culinaris =
     -- Other stuff
     { baseThrust=0.01, baseStrafeThrust=0.01, baseRotation=0.5 }
   )
+
 
 
 

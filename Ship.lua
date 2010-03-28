@@ -2,6 +2,7 @@ require('passion.init')
 require('ShipModule')
 require('ShipSlot')
 require('Weapons')
+require('AstroObject')
 
 
 local twoPi = 2.0*math.pi
@@ -11,28 +12,12 @@ local _normalizeAngle = function(angle)
   return (angle < 0 and (angle + twoPi) or angle)
 end
 
-Ship = passion.ActorWithBody:subclass('Ship')
+Ship = class('Ship', AstroObject)
 
 function Ship:initialize(model,x,y)
-  super.initialize(self)
+  super.initialize(self, model)
 
   self.model = model
-
-  -- create body according to the spec
-  self:newBody()
-  for shapeType,shapeData in pairs(model.shapes) do
-    if(shapeType=='circle') then
-      self:newCircleShape(unpack(shapeData))
-    elseif(shapeType=='polygon') then
-      self:newPolygonShape(unpack(shapeData))
-    elseif(shapeType=='rectangle') then
-      self:newRectangleShape(unpack(shapeData))
-    else
-      error('Unknown shape type: ' .. shapeType)
-    end
-  end
-
-  self:setMassFromShapes()
 
   -- Initialize ship slots
   self.slots = {}
@@ -79,13 +64,6 @@ end
 
 function Ship:getObjective()
   return 0,0
-end
-
-function Ship:draw()
-  local x, y = self:getPosition()
-  local model = self.model
-  self:drawShapes()
-  passion.graphics.drawq(model.quad, x, y, self:getAngle(), 1, 1, model.centerX, model.centerY)
 end
 
 function Ship:thrust()

@@ -3,6 +3,7 @@ require('PlayerShip')
 require('ShipModels')
 require('Weapons')
 require('Thrusters')
+require('Asteroids')
 
 Game = class('Game', StatefulObject)
 
@@ -64,6 +65,8 @@ function Play:enterState()
   self.ship.slots.frontLeft:attach(Cannon:new(1))
   self.ship.slots.frontRight:attach(Cannon:new(3))
   self.ship.slots.back:attach(Thruster:new(1))
+  
+  self.asteroid = Asteroid:new(Asteroid.big_asteroid_1, 200, 200)
 end
 
 function Play:exitState()

@@ -11,14 +11,10 @@ function PlayerShip:getObjective()
   return love.mouse.getPosition()
 end
 
-function PlayerShip:draw()
-  local x, y = self:getPosition()
-  local model = self.model
-  self:drawShapes()
-  passion.graphics.drawq(model.quad, x, y, self:getAngle(), 1, 1, model.centerX, model.centerY)
-end
-
 function PlayerShip:update()
+
+  super.update(self)
+
   self:orientate()
 
   if(love.keyboard.isDown('w')) then

@@ -66,7 +66,24 @@ function Play:enterState()
   self.ship.slots.frontRight:attach(Cannon:new(3))
   self.ship.slots.back:attach(Thruster:new(1))
   
-  self.asteroid = Asteroid:new(Asteroid.big_asteroid_1, 200, 200)
+  local asteroidModels = {
+    Asteroid.big_asteroid_1,
+    Asteroid.big_asteroid_2,
+    Asteroid.medium_asteroid_1,
+    Asteroid.medium_asteroid_2,
+    Asteroid.medium_asteroid_3,
+    Asteroid.small_asteroid_1,
+    Asteroid.small_asteroid_2,
+    Asteroid.small_asteroid_3,
+    Asteroid.small_asteroid_4
+  }
+  
+  for i=1,20 do
+    Asteroid:new(asteroidModels[math.random(1,#asteroidModels)],
+      math.random(150, 650),
+      math.random(150, 450)
+    )
+  end
 end
 
 function Play:exitState()

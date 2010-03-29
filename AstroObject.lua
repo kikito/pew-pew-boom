@@ -36,8 +36,10 @@ end
 function AstroObject:draw()
   local x, y = self:getPosition()
   local model = self.model
-  self:drawShapes()
   passion.graphics.drawq(model.quad, x, y, self:getAngle(), 1, 1, model.centerX, model.centerY)
+  love.graphics.setColor(unpack(passion.green))
+  self:drawShapes()
+  love.graphics.setColor(255,255,255,255)
 end
 
 

@@ -24,8 +24,8 @@ function ShipModel:initialize(name, centerX, centerY, quad, shapes, slotSpecs, o
   self.maxAngularVelocity = options.maxAngularVelocity or 0.6
 
   -- The angle on which the ship "snaps" to the target direction
-  -- Defaults to ~20 degrees
-  self.snapAngleThreshold = options.directionSnapAngleThreshold or 0.05
+  -- Defaults to ~10 degrees
+  self.snapAngleThreshold = options.directionSnapAngleThreshold or 0.02
 end
 
 ShipModel.image = passion.graphics.getImage('images/image.png')
@@ -40,7 +40,7 @@ ShipModel.lens_culinaris =
       back={ x=-13, y=0, angle=0 }
     },
     -- Other stuff
-    { baseThrust=0.01, baseStrafeThrust=0.01, baseRotation=0.5 }
+    { baseThrust=0.01, baseStrafeThrust=0.01, baseRotation=0.7 }
   )
 
 

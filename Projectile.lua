@@ -1,6 +1,9 @@
 require('passion.init')
+require('PacManLike')
+
 
 Projectile = passion.ActorWithBody:subclass('Projectile')
+Projectile:includes(PacManLike)
 
 Projectile.image = passion.graphics.getImage('images/image.png')
 Projectile.quad1 = passion.graphics.newQuad(Projectile.image,  0,32, 16,16 )
@@ -13,6 +16,7 @@ function Projectile:initialize(x,y,angle,level,velX,velY, duration)
   super.initialize(self)
 
   self:newBody()
+  self:setBullet(true)
 
   self:newRectangleShape(4,7,10,4)
 
@@ -40,6 +44,11 @@ function Projectile:initialize(x,y,angle,level,velX,velY, duration)
 end
 
 function Projectile:draw()
+  love.graphics.setColor(unpack(passion.white))
   local x, y = self:getPosition()
   passion.graphics.drawq(self.quad, x, y, self:getAngle(), 1, 1, 8, 8)
+end
+
+function Projectile:update()
+  self:pacManCheck()
 end

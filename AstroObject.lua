@@ -1,4 +1,5 @@
 require('ShipModule')
+require('PacManLike')
 
 AstroObjectModel = class('AstroObjectModel')
 
@@ -11,6 +12,7 @@ function AstroObjectModel:initialize(name, centerX, centerY, quad, shapes)
 end
 
 AstroObject = class('AstroObject', passion.ActorWithBody)
+AstroObject:includes(PacManLike)
 
 function AstroObject:initialize(model)
   super.initialize(self)
@@ -37,21 +39,12 @@ function AstroObject:draw()
   local x, y = self:getPosition()
   local model = self.model
   passion.graphics.drawq(model.quad, x, y, self:getAngle(), 1, 1, model.centerX, model.centerY)
-  love.graphics.setColor(unpack(passion.green))
-  self:drawShapes()
-  love.graphics.setColor(255,255,255,255)
+  --love.graphics.setColor(unpack(passion.green))
+  --self:drawShapes()
 end
 
 function AstroObject:update()
-  local x,y = self:getPosition()
-  
-  if(x < -16) then x = 800 end
-  if(x > 816) then x = 0 end
-  if(y < -16) then y = 600 end
-  if(y > 610) then y = 0 end
-  
-  self:setPosition(x,y)
-
+  self:pacManCheck()
 end
 
 

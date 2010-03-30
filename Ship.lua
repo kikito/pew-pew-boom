@@ -125,3 +125,12 @@ function Ship:fire()
     end
   end
 end
+
+function Ship:draw()
+  love.graphics.setColor(unpack(passion.white))
+  super.draw(self)
+end
+
+function Ship:update()
+  self:pacManCheck()
+end

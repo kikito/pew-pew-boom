@@ -13,8 +13,6 @@ end
 
 function PlayerShip:update()
 
-  super.update(self)
-
   self:orientate()
 
   if(love.keyboard.isDown('w')) then
@@ -32,4 +30,6 @@ function PlayerShip:update()
   if(love.mouse.isDown('l')) then
     self:fire()
   end
+  
+  self:pacManCheck()
 end

@@ -18,9 +18,10 @@ function ShipSlot:attach(module)
 
   self.module = module
 
-  local x,y = self.ship:getWorldPoint(self.x, self.y)
-  module:setPosition(x,y)
-  self.joint = love.physics.newRevoluteJoint(self.ship:getBody(), module:getBody(), x, y)
+  --This doesn't work ok if I move the ship abruptly (setPosition). So, simulating it with Lua
+  --local x,y = self.ship:getWorldPoint(self.x, self.y)
+  --module:setPosition(x,y)
+  --self.joint = love.physics.newRevoluteJoint(self.ship:getBody(), module:getBody(), x, y)
 
   module:attach(self)
 end

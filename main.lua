@@ -4,6 +4,7 @@ require('passion.init')
 require('Game')
 
 function passion.load()
+  math.randomseed( os.time() )
   love.graphics.setLineWidth(2)
   game = Game:new()
 end

@@ -78,7 +78,7 @@ function Play:enterState()
     Asteroid.small_asteroid_4
   }
   
-  for i=1,20 do
+  for i=1,30 do
     Asteroid:new(asteroidModels[math.random(1,#asteroidModels)],
       math.random(150, 650),
       math.random(150, 450)

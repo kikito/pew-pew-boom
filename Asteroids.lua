@@ -1,13 +1,34 @@
 require('ShipModule')
 require('AstroObject')
 
+local twoPi = math.pi * 2.0
+
+
+local colors = {
+  passion.white,
+  passion.yellow,
+  passion.green,
+  passion.blue,
+  passion.red
+}
+
 Asteroid = class('Asteroid', AstroObject)
 
 Asteroid.image = passion.graphics.getImage('images/image.png')
 
 function Asteroid:initialize(model,x,y)
+  local rnd = math.random
   super.initialize(self, model)
   self:setPosition(x,y)
+  self:setAngle(rnd() * twoPi)
+  self:applyTorque(rnd(-1,1) * rnd())
+  self:setLinearVelocity(rnd(-20,20) * rnd(), rnd(-20,20) * rnd())
+  self.color = colors[rnd(1,#colors)]
+end
+
+function Asteroid:draw()
+  love.graphics.setColor(unpack(self.color))
+  super.draw(self)
 end
 
 

@@ -28,10 +28,14 @@ end
 function ShipModule:update(dt)
   local ship, slot = self.ship, self.slot
   if(ship==nil or slot==nil) then return end
+  
+  local x,y = self.ship:getWorldPoint(slot.x, slot.y)
+  self:setPosition(x,y)
   self:setAngle(ship:getAngle() + slot.angle ) -- FIXME: the slot.angle isn't ok
 end
 
 function ShipModule:draw()
+  love.graphics.setColor(unpack(passion.white))
   local x, y = self:getPosition()
   local cx, cy = self:getCenter()
   passion.graphics.drawq(self.quad, x, y, self:getAngle(), 1, 1, cx, cy)

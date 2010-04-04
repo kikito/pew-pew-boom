@@ -35,12 +35,26 @@ ShipModel.lens_culinaris =
     -- Shapes
     { circle={0,0,16} },
     -- Slots
-    { frontLeft= { x=6,y=-10, angle=0 },
-      frontRight={ x=6,y=10, angle=0 },
-      back={ x=-13, y=0, angle=0 }
+    { frontLeft= { x=6, y=-10 },
+      frontRight={ x=6, y=10 },
+      utility = { x=-9, y=0 },
+      back={ x=-13, y=0 }
     },
     -- Other stuff
     { baseThrust=0.01, baseStrafeThrust=0.01, baseRotation=0.7 }
+  )
+
+ShipModel.razor = 
+  ShipModel:new("Razor", 16,16, passion.graphics.newQuad(ShipModel.image, 32,0, 32,32),
+    -- Shapes
+    { circle={0,0,16} },
+    -- Slots
+    { frontLeft= { x=6,y=-10 },
+      frontRight={ x=6,y=10 },
+      back={ x=-13, y=0 }
+    },
+    -- Other stuff
+    { baseThrust=0.05, baseStrafeThrust=0.03, baseRotation=1.2 }
   )
 
 

@@ -4,8 +4,10 @@ require('ShipModels')
 require('Weapons')
 require('Thrusters')
 require('Asteroids')
+require('Gyroscopes')
 
 Game = class('Game', StatefulObject)
+Game:includes(Beholder)
 
 -- load some functions using passion's built-in resource manager
 Game.fonts = {
@@ -17,6 +19,11 @@ function Game:initialize()
   super.initialize(self)
 
   self:gotoState('MainMenu')
+  self:observe('keypressed_tab', 'toggleDebugShapes')
+end
+
+function Game:toggleDebugShapes()
+  AstroObject.debugShapes = not AstroObject.debugShapes
 end
 
 local MainMenu = Game:addState('MainMenu')
@@ -62,10 +69,11 @@ function Play:enterState()
 
   self.ship = PlayerShip(ShipModel.lens_culinaris, 100,100)
 
-  self.ship.slots.frontLeft:attach(Cannon:new(1))
-  self.ship.slots.frontRight:attach(Cannon:new(3))
-  self.ship.slots.back:attach(Thruster:new(1))
-  
+  self.ship:attach('frontLeft', Cannon:new(1))
+  self.ship:attach('frontRight', Cannon:new(2))
+  self.ship:attach('utility', Gyroscope:new(2))
+  self.ship:attach('back', Thruster:new(1))
+
   local asteroidModels = {
     Asteroid.big_asteroid_1,
     Asteroid.big_asteroid_2,
@@ -78,16 +86,24 @@ function Play:enterState()
     Asteroid.small_asteroid_4
   }
   
+  self.asteroids = {}
+  
   for i=1,30 do
-    Asteroid:new(asteroidModels[math.random(1,#asteroidModels)],
-      math.random(150, 650),
-      math.random(150, 450)
+    table.insert(self.asteroids,
+      Asteroid:new(asteroidModels[math.random(1,#asteroidModels)],
+        math.random(150, 650),
+        math.random(150, 450)
+      )
     )
   end
 end
 
 function Play:exitState()
-  passion.destroyWorld()
   self.ship:destroy()
   self.ship = nil
+  for _,asteroid in ipairs(self.asteroids) do
+    asteroid:destroy()
+  end
+  self.asteroids = nil
+  passion.destroyWorld()
 end

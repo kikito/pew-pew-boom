@@ -6,6 +6,8 @@ require('Thrusters')
 require('Asteroids')
 require('Gyroscopes')
 
+debug = false
+
 Game = class('Game', StatefulObject)
 Game:includes(Beholder)
 
@@ -19,11 +21,11 @@ function Game:initialize()
   super.initialize(self)
 
   self:gotoState('MainMenu')
-  self:observe('keypressed_tab', 'toggleDebugShapes')
+  self:observe('keypressed_tab', 'toggleDebug')
 end
 
-function Game:toggleDebugShapes()
-  AstroObject.debugShapes = not AstroObject.debugShapes
+function Game:toggleDebug()
+  debug = not debug
 end
 
 local MainMenu = Game:addState('MainMenu')

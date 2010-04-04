@@ -1,5 +1,5 @@
-require('ShipModule')
-require('PacManLike')
+require('modules/PacManLike')
+require('modules/BodyBuilder')
 
 AstroObjectModel = class('AstroObjectModel')
 
@@ -13,26 +13,12 @@ end
 
 AstroObject = class('AstroObject', passion.ActorWithBody)
 AstroObject:includes(PacManLike)
+AstroObject:includes(BodyBuilder)
 
 function AstroObject:initialize(model)
   super.initialize(self)
-
+  self:buildBody(model.shapes)
   self.model = model
-
-  -- create body according to the spec
-  self:newBody()
-  for shapeType,shapeData in pairs(model.shapes) do
-    if(shapeType=='circle') then
-      self:newCircleShape(unpack(shapeData))
-    elseif(shapeType=='polygon') then
-      self:newPolygonShape(unpack(shapeData))
-    elseif(shapeType=='rectangle') then
-      self:newRectangleShape(unpack(shapeData))
-    else
-      error('Unknown shape type: ' .. shapeType)
-    end
-  end
-  self:setMassFromShapes()
 end
 
 function AstroObject:draw()

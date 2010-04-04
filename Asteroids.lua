@@ -3,7 +3,6 @@ require('AstroObject')
 
 local twoPi = math.pi * 2.0
 
-
 local colors = {
   passion.white,
   passion.yellow,

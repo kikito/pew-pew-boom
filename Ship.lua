@@ -29,6 +29,10 @@ function Ship:initialize(model,x,y)
   self:setAngle(math.pi/2.0)
 end
 
+function Ship:attach(slotName, module)
+  self.slots[slotName]:attach(module)
+end
+
 function Ship:getThrust()
   local thrust = self.model.baseThrust
   for _,slot in pairs(self.slots) do

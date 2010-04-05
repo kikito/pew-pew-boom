@@ -1,10 +1,10 @@
 require('passion.init')
-require('PlayerShip')
-require('ShipModels')
-require('Weapons')
-require('Thrusters')
-require('Asteroids')
-require('Gyroscopes')
+require('actors/space/vehicles/PlayerShip')
+require('actors/space/vehicles/ShipModels')
+require('actors/space/modules/PlasmaCannons')
+require('actors/space/modules/Thrusters')
+require('actors/space/modules/Gyroscopes')
+require('actors/space/other/Asteroids')
 
 debug = false
 
@@ -71,41 +71,46 @@ function Play:enterState()
 
   self.ship = PlayerShip(ShipModel.lens_culinaris, 100,100)
 
-  self.ship:attach('frontLeft', Cannon:new(1))
-  self.ship:attach('frontRight', Cannon:new(2))
-  self.ship:attach('utility', Gyroscope:new(2))
-  self.ship:attach('back', Thruster:new(1))
+  passion.dumpTable(PlasmaCannon1)
 
-  local asteroidModels = {
-    Asteroid.big_asteroid_1,
-    Asteroid.big_asteroid_2,
-    Asteroid.medium_asteroid_1,
-    Asteroid.medium_asteroid_2,
-    Asteroid.medium_asteroid_3,
-    Asteroid.small_asteroid_1,
-    Asteroid.small_asteroid_2,
-    Asteroid.small_asteroid_3,
-    Asteroid.small_asteroid_4
+  self.ship:attach('frontLeft', PlasmaCannon1:new())
+  self.ship:attach('frontRight', PlasmaCannon2:new())
+  self.ship:attach('utility', Gyroscope1:new())
+  self.ship:attach('back', Thruster1:new())
+
+  local asteroidClasses = {
+    BigAsteroid1,
+    BigAsteroid2,
+    MediumAsteroid1,
+    MediumAsteroid2,
+    MediumAsteroid3,
+    SmallAsteroid1,
+    SmallAsteroid2,
+    SmallAsteroid3,
+    SmallAsteroid4
   }
-  
+
   self.asteroids = {}
-  
-  for i=1,30 do
+
+  for i=1,20 do
     table.insert(self.asteroids,
-      Asteroid:new(asteroidModels[math.random(1,#asteroidModels)],
+      asteroidClasses[math.random(1,#asteroidClasses)]:new(
         math.random(150, 650),
         math.random(150, 450)
       )
     )
   end
+
 end
 
 function Play:exitState()
   self.ship:destroy()
   self.ship = nil
+
   for _,asteroid in ipairs(self.asteroids) do
     asteroid:destroy()
   end
   self.asteroids = nil
+
   passion.destroyWorld()
 end

@@ -1,0 +1,26 @@
+require('actors/Projectile.lua')
+
+local image = passion.graphics.getImage('images/image.png')
+local quad1 = passion.graphics.newQuad(image,  0,32, 16,16 )
+local quad2 = passion.graphics.newQuad(image, 16,32, 16,16 )
+local quad3 = passion.graphics.newQuad(image, 32,32, 16,16 )
+
+PlasmaProjectile = class('PlasmaProjectile', Projectile)
+function PlasmaProjectile:initialize(x,y,velX,velY,angle,quad)
+  super.initialize(self, x,y,velX,velY,angle, 0.5, 1, quad1)
+end
+
+PlasmaProjectile1 = class('PlasmaProjectile1', PlasmaProjectile)
+function PlasmaProjectile1:initialize(x,y,velX,velY,angle)
+  super.initialize(self, x,y,velX,velY,angle,quad1)
+end
+
+PlasmaProjectile2 = class('PlasmaProjectile2', PlasmaProjectile)
+function PlasmaProjectile2:initialize(x,y,velX,velY,angle)
+  super.initialize(self, x,y,velX,velY,angle,quad2)
+end
+
+PlasmaProjectile3 = class('PlasmaProjectile3', PlasmaProjectile)
+function PlasmaProjectile3:initialize(x,y,velX,velY,angle)
+  super.initialize(self, x,y,velX,velY,angle,quad3)
+end

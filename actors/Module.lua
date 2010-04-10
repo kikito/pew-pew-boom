@@ -1,26 +1,30 @@
 require('mixins/DebugDraw')
+require('mixins/HasGroupIndex')
 
 Module = class('Module', passion.ActorWithBody)
 Module:includes(DebugDraw)
+Module:includes(HasGroupIndex)
 
 function Module:initialize(centerX, centerY, quad)
   super.initialize(self)
   self:newBody()
-  self:setMass(centerX, centerY, 0.1, 0.1)
+  self:setMass(0, 0, 0.1, 0.1)
   self:setCenter(centerX, centerY)
   self.quad = quad
+  self:setPosition(0,0)
 end
 
 function Module:attach(slot)
   self.slot = slot
   self.vehicle = slot.vehicle
+  self:setGroupIndex(self.vehicle:getGroupIndex())
 end
 
 function Module:getDrawOrder()
   if(self.drawOrder~=nil) then return self.drawOrder end
 
   local vehicle = self.vehicle
-  if(vehicle==nil) then return end
+  if(vehicle==nil) then return 0 end
 
   local so = vehicle:getDrawOrder()
   if(so~=nil) then return so-1 end

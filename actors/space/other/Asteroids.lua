@@ -33,6 +33,10 @@ function Asteroid:initialize(x,y,cx,cy,quad,shapes)
   self.quad = quad
 end
 
+function Asteroid:update(dt)
+  self:pacManCheck()
+end
+
 BigAsteroid1 = class('BigAsteroid1', Asteroid)
 function BigAsteroid1:initialize(x,y)
   super.initialize( self, x,y, 32,32,

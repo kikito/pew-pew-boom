@@ -1,18 +1,22 @@
 require('mixins/PacManLike.lua')
 require('mixins/DebugDraw.lua')
+require('mixins/HasGroupIndex.lua')
 
 Projectile = class('Projectile', passion.ActorWithBody)
 Projectile:includes(PacManLike)
 Projectile:includes(DebugDraw)
+Projectile:includes(HasGroupIndex)
 
-function Projectile:initialize(x,y,velX,velY,angle,duration,impulse,quad)
+function Projectile:initialize(x,y,velX,velY,angle,groupIndex,duration,impulse,quad)
   super.initialize(self)
 
   self:newBody()
   self:setBullet(true)
 
-  self:newRectangleShape(4,7,10,4)
+  self:newRectangleShape(-5,-2,10,4)
+  self:setCenter(8,8)
   self:setMassFromShapes()
+  self:setGroupIndex(groupIndex)
 
   self:setPosition(x,y)
   self:setAngle(angle)

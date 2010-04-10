@@ -67,13 +67,12 @@ local Play = Game:addState('Play')
 
 function Play:enterState()
 
-  passion.newWorld(3000, 3000)
+  passion.physics.newWorld(3000, 3000)
 
   self.ship = PlayerShip(ShipModel.lens_culinaris, 100,100)
 
-  passion.dumpTable(PlasmaCannon1)
-
-  self.ship:attach('frontLeft', PlasmaCannon1:new())
+  local p= PlasmaCannon1:new()
+  self.ship:attach('frontLeft', p )
   self.ship:attach('frontRight', PlasmaCannon2:new())
   self.ship:attach('utility', Gyroscope1:new())
   self.ship:attach('back', Thruster1:new())

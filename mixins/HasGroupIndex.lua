@@ -9,7 +9,7 @@ local _groupIndexes = setmetatable({}, {__mode = "k"})
 
 
 function HasGroupIndex:getNewGroupIndex()
-  _groupIndexesCounter = _groupIndexesCounter + 1
+  _groupIndexesCounter = _groupIndexesCounter - 1
   self:setGroupIndex(_groupIndexesCounter)
 end
 

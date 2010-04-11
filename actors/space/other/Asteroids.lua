@@ -14,7 +14,7 @@ local colors = {
 
 local rnd = math.random
 
-Asteroid = class('Asteroid', passion.ActorWithBody)
+Asteroid = class('Asteroid', passion.physics.Actor)
 Asteroid:includes(PacManLike)
 Asteroid:includes(BodyBuilder)
 Asteroid:includes(DebugDraw)

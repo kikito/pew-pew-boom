@@ -4,7 +4,7 @@ require('mixins/SlotBuilder.lua')
 require('mixins/DebugDraw.lua')
 require('mixins/HasGroupIndex.lua')
 
-Vehicle = class('Vehicle', passion.ActorWithBody)
+Vehicle = class('Vehicle', passion.physics.Actor)
 
 Vehicle:includes(BodyBuilder)
 Vehicle:includes(SlotBuilder)

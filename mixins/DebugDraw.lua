@@ -1,7 +1,7 @@
 DebugDraw = {}
 
 
--- An ActorWithBody with center and 'quad' defined.
+-- An passion.physics.Actor with center and 'quad' defined.
 -- Draws the actor's quad, shape and bbox if the global variable 'debug' is defined
 function DebugDraw:draw()
   love.graphics.setColor(unpack(self.color or passion.white))

@@ -1,7 +1,7 @@
 
 BodyBuilder = {}
 
--- An ActorWithBody that can create shapes dynamically depending on a list of shape specs
+-- An passion.physics.Actor that can create shapes dynamically depending on a list of shape specs
 function BodyBuilder:buildBody(shapes)
   self:newBody()
   for shapeType,shapeData in pairs(shapes) do

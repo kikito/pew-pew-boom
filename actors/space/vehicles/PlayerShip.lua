@@ -4,7 +4,6 @@ PlayerShip = class('PlayerShip', Ship)
 
 function PlayerShip:initialize(model,x,y)
   super.initialize(self, model, x, y)
-  --self:setGroupIndex(1)
 end
 
 function PlayerShip:getObjective()

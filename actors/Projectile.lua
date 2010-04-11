@@ -2,7 +2,7 @@ require('mixins/PacManLike.lua')
 require('mixins/DebugDraw.lua')
 require('mixins/HasGroupIndex.lua')
 
-Projectile = class('Projectile', passion.ActorWithBody)
+Projectile = class('Projectile', passion.physics.Actor)
 Projectile:includes(PacManLike)
 Projectile:includes(DebugDraw)
 Projectile:includes(HasGroupIndex)

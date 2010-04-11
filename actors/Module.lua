@@ -1,7 +1,7 @@
 require('mixins/DebugDraw')
 require('mixins/HasGroupIndex')
 
-Module = class('Module', passion.ActorWithBody)
+Module = class('Module', passion.physics.Actor)
 Module:includes(DebugDraw)
 Module:includes(HasGroupIndex)
 

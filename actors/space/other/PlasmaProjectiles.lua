@@ -7,7 +7,7 @@ local quad3 = passion.graphics.newQuad(image, 32,32, 16,16 )
 
 PlasmaProjectile = class('PlasmaProjectile', Projectile)
 function PlasmaProjectile:initialize(x,y,velX,velY,angle,groupIndex,quad)
-  super.initialize(self, x,y,velX,velY,angle,groupIndex, 0.5, 1, quad1)
+  super.initialize(self, x,y,velX,velY,angle,groupIndex, 0.5, 1, quad)
 end
 
 PlasmaProjectile1 = class('PlasmaProjectile1', PlasmaProjectile)

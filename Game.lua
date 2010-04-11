@@ -1,6 +1,7 @@
 require('passion.init')
-require('actors/space/vehicles/PlayerShip')
-require('actors/space/vehicles/ShipModels')
+require('actors/PlayerAI')
+require('actors/space/vehicles/LensCulinaris')
+require('actors/space/vehicles/Razor')
 require('actors/space/modules/PlasmaCannons')
 require('actors/space/modules/Thrusters')
 require('actors/space/modules/Gyroscopes')
@@ -68,11 +69,9 @@ local Play = Game:addState('Play')
 function Play:enterState()
 
   passion.physics.newWorld(3000, 3000)
+  self.ship = LensCulinaris:new(PlayerAI:new(), 100,100)
 
-  self.ship = PlayerShip(ShipModel.lens_culinaris, 100,100)
-
-  local p= PlasmaCannon1:new()
-  self.ship:attach('frontLeft', p )
+  self.ship:attach('frontLeft', PlasmaCannon1:new() )
   self.ship:attach('frontRight', PlasmaCannon2:new())
   self.ship:attach('utility', Gyroscope1:new())
   self.ship:attach('back', Thruster1:new())

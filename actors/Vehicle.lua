@@ -11,8 +11,10 @@ Vehicle:includes(SlotBuilder)
 Vehicle:includes(DebugDraw)
 Vehicle:includes(HasGroupIndex)
 
-function Vehicle:initialize(x, y, cx, cy, shapes, slots, quad)
+function Vehicle:initialize(ai, x, y, cx, cy, shapes, slots, quad)
   super.initialize(self)
+  self.ai = ai
+  if(ai~=nil) then ai:setVehicle(self) end
   self:buildBody(shapes)
   self:getNewGroupIndex()
   self:buildSlots(slots)

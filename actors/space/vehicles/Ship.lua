@@ -79,9 +79,9 @@ end
 function Ship:rotate(rotationDir)
   local rotation = self:getRotation()
   if(rotationDir == 'clockwise') then
-    self:applyTorque(-rotation)
-  elseif(rotationDir == 'counterclockwise') then
     self:applyTorque(rotation)
+  elseif(rotationDir == 'counterclockwise') then
+    self:applyTorque(-rotation)
   end
 end
 

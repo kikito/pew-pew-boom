@@ -17,6 +17,6 @@ function LensCulinaris:initialize(ai, x, y)
     -- Quad
     passion.graphics.newQuad(image, 0,0, 32,32),
     -- Other stuff
-    { baseThrust=0.01, baseStrafeThrust=0.01, baseRotation=0.7 }
+    { baseThrust=0.01, baseStrafeThrust=0.01, baseRotation=0.5 }
   )
 end

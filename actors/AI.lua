@@ -1,4 +1,4 @@
-AI = class('AI', StatefulObject)
+AI = class('AI', passion.Actor)
 
 function AI:initialize()
   super.initialize(self)

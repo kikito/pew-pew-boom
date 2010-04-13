@@ -37,6 +37,34 @@ function PlayerAI:getStrafeDirection()
   return nil
 end
 
+local _drawAngle = function(x,y,angle, color)
+  love.graphics.setColor(unpack(color))
+  
+  -- love.graphics.line(x,y,x+math.cos(angle)*20, y + math.sin(angle)*20)
+  
+  love.graphics.rectangle('line', x,y, 10, angle*30)
+end
+
+function _sign(x)
+  return x>0 and 1 or x<0 and -1 or 0
+end
+
+function PlayerAI:draw()
+  if(debug) then
+
+    love.graphics.print('braking: ' .. tostring(self.braking), 100, 240)
+    love.graphics.print('w: ' .. tostring(self.w), 100, 300)
+    love.graphics.print('direction: ' .. tostring(self.direction), 100, 260)
+    love.graphics.print('quadrant: ' .. tostring(self.quadrant), 100, 280)
+    --love.graphics.reset()
+    _drawAngle(50,220,0, passion.white)
+    _drawAngle(50,220,math.pi/2.0, passion.white)
+    _drawAngle(60,220,self.differenceAngle, passion.green)
+    _drawAngle(70,220,self.brakingAngle, passion.red)
+  end
+end
+
+
 function PlayerAI:getRotationDirection()
 
   local ox, oy = love.mouse.getPosition()
@@ -44,21 +72,42 @@ function PlayerAI:getRotationDirection()
   local vehicle = self:getVehicle()
   local x, y = vehicle:getPosition()
   local angle = vehicle:getAngle()
-  local rotation = vehicle:getRotation()
+  local maxTorque = vehicle:getRotation()
   local inertia = vehicle:getInertia()
   local w = vehicle:getAngularVelocity()
 
-  local targetAngle = math.atan2(oy-y,ox-x)
-  local differenceAngle = _normalizeAngle(targetAngle - angle)
+  self.targetAngle = math.atan2(oy-y,ox-x)
+  self.differenceAngle = _normalizeAngle(self.targetAngle - angle)
+  self.braking = false
 
-  --rotation = (differenceAngle * inertia) / (2*w*w)
 
-  if(differenceAngle <= math.pi) then -- counter-clockwise
-    return 'counterclockwise'
-  else
-    return 'clockwise'
+  self.w = w
+
+  if(self.differenceAngle < math.pi) then -- clockwise is the shortest path
+    self.quadrant = 1
+    self.direction = 'clockwise'
+    self.brakingAngle = 2.0*w*w*inertia/maxTorque
+    if(self.brakingAngle > self.differenceAngle) then
+      if(w>0) then
+        self.braking = true
+        self.direction = 'counterclockwise'
+      end
+    end
+  else -- second half
+    self.quadrant = 2
+    self.direction = 'counterclockwise'
+    self.brakingAngle = _normalizeAngle(twoPi-2.0*w*w*inertia/maxTorque)
+    if(self.brakingAngle < self.differenceAngle) then
+      if(w<0) then
+        self.braking = true
+        self.direction = 'clockwise'
+      end
+    end
   end
+  
+  
 
+  return self.direction
 end
 
 function PlayerAI:getWeaponsFired()

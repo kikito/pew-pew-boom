@@ -79,35 +79,20 @@ function PlayerAI:getRotationDirection()
   self.targetAngle = math.atan2(oy-y,ox-x)
   self.differenceAngle = _normalizeAngle(self.targetAngle - angle)
   self.braking = false
+  self.brakingAngle = _normalizeAngle(_sign(w)*2.0*w*w*inertia/maxTorque)
 
-
-  self.w = w
-
-  if(self.differenceAngle < math.pi) then -- clockwise is the shortest path
-    self.quadrant = 1
-    self.direction = 'clockwise'
-    self.brakingAngle = 2.0*w*w*inertia/maxTorque
-    if(self.brakingAngle > self.differenceAngle) then
-      if(w>0) then
-        self.braking = true
-        self.direction = 'counterclockwise'
-      end
+  local torque = maxTorque
+  if(self.differenceAngle >= math.pi) then --ccw is the sortest path
+    if(self.brakingAngle > self.differenceAngle or w>0) then
+      torque = -torque
     end
-  else -- second half
-    self.quadrant = 2
-    self.direction = 'counterclockwise'
-    self.brakingAngle = _normalizeAngle(twoPi-2.0*w*w*inertia/maxTorque)
-    if(self.brakingAngle < self.differenceAngle) then
-      if(w<0) then
-        self.braking = true
-        self.direction = 'clockwise'
-      end
+  else -- clockwise is the shortest path
+    if(self.brakingAngle > self.differenceAngle and w>0) then
+      torque = -torque
     end
   end
-  
-  
 
-  return self.direction
+  return torque > 0 and 'clockwise' or 'counterclockwise'
 end
 
 function PlayerAI:getWeaponsFired()

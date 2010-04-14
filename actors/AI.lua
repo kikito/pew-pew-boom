@@ -46,3 +46,17 @@ function AI:orientateTowards(tx,ty)
 
   return 'clockwise'
 end
+
+function AI:getAllWeapons()
+  local slotNames = {}
+  local vehicle = self:getVehicle()
+  if(vehicle.slots) then
+    for slotName,slot in pairs(vehicle.slots) do
+      module = slot.module
+      if(module~=nil and type(module.fire)=='function') then
+        table.insert(slotNames, slotName)
+      end
+    end
+  end
+  return slotNames
+end

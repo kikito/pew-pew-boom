@@ -35,16 +35,6 @@ function PlayerAI:getRotationDirection()
 end
 
 function PlayerAI:getWeaponsFired()
-  local slotNames = {}
-
-  if(self._fire) then
-    for slotName,slot in pairs(self.vehicle.slots) do
-      module = slot.module
-      if(module~=nil and type(module.fire)=='function') then
-        table.insert(slotNames, slotName)
-      end
-    end
-  end
-
-  return slotNames
+  if(self._fire) then return self:getAllWeapons() end
+  return {}
 end

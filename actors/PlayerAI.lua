@@ -5,11 +5,6 @@ PlayerAI:includes(Beholder)
 
 local twoPi = 2.0*math.pi
 
-local _normalizeAngle = function(angle)
-  angle = angle % twoPi
-  return (angle < 0 and (angle + twoPi) or angle)
-end
-
 function PlayerAI:initialize()
   super.initialize(self)
   self._thrust = false
@@ -37,33 +32,14 @@ function PlayerAI:getStrafeDirection()
   return nil
 end
 
-local _drawAngle = function(x,y,angle, color)
-  love.graphics.setColor(unpack(color))
-  
-  -- love.graphics.line(x,y,x+math.cos(angle)*20, y + math.sin(angle)*20)
-  
-  love.graphics.rectangle('line', x,y, 10, angle*30)
-end
-
 function _sign(x)
   return x>0 and 1 or x<0 and -1 or 0
 end
 
-function PlayerAI:draw()
-  if(debug) then
-
-    love.graphics.print('braking: ' .. tostring(self.braking), 100, 240)
-    love.graphics.print('w: ' .. tostring(self.w), 100, 300)
-    love.graphics.print('direction: ' .. tostring(self.direction), 100, 260)
-    love.graphics.print('quadrant: ' .. tostring(self.quadrant), 100, 280)
-    --love.graphics.reset()
-    _drawAngle(50,220,0, passion.white)
-    _drawAngle(50,220,math.pi/2.0, passion.white)
-    _drawAngle(60,220,self.differenceAngle, passion.green)
-    _drawAngle(70,220,self.brakingAngle, passion.red)
-  end
+local _normalizeAngle = function(angle)
+  angle = angle % twoPi
+  return (angle < 0 and (angle + twoPi) or angle)
 end
-
 
 function PlayerAI:getRotationDirection()
 
@@ -77,7 +53,9 @@ function PlayerAI:getRotationDirection()
   local w = vehicle:getAngularVelocity()
 
   local targetAngle = math.atan2(oy-y,ox-x)
+  -- difference between my angle and my target angle
   local differenceAngle = _normalizeAngle(targetAngle - angle)
+  -- the distance i would move before stopping, if I started stopping just now, with my current w
   local brakingAngle = _normalizeAngle(_sign(w)*2.0*w*w*inertia/maxTorque)
 
   local torque = maxTorque

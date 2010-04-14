@@ -76,20 +76,15 @@ function PlayerAI:getRotationDirection()
   local inertia = vehicle:getInertia()
   local w = vehicle:getAngularVelocity()
 
-  self.targetAngle = math.atan2(oy-y,ox-x)
-  self.differenceAngle = _normalizeAngle(self.targetAngle - angle)
-  self.braking = false
-  self.brakingAngle = _normalizeAngle(_sign(w)*2.0*w*w*inertia/maxTorque)
+  local targetAngle = math.atan2(oy-y,ox-x)
+  local differenceAngle = _normalizeAngle(targetAngle - angle)
+  local brakingAngle = _normalizeAngle(_sign(w)*2.0*w*w*inertia/maxTorque)
 
   local torque = maxTorque
-  if(self.differenceAngle >= math.pi) then --ccw is the sortest path
-    if(self.brakingAngle > self.differenceAngle or w>0) then
-      torque = -torque
-    end
-  else -- clockwise is the shortest path
-    if(self.brakingAngle > self.differenceAngle and w>0) then
-      torque = -torque
-    end
+  local a,b,c = differenceAngle > math.pi, brakingAngle > differenceAngle, w > 0
+  -- two of these 3 conditions must be true
+  if( (a and b) or (a and c) or (b and c) ) then
+    torque = -torque
   end
 
   return torque > 0 and 'clockwise' or 'counterclockwise'

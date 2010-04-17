@@ -7,7 +7,7 @@ require('actors/space/modules/Thrusters')
 require('actors/space/modules/Gyroscopes')
 require('actors/space/other/Asteroids')
 
-debug = false
+showDebugInfo = false
 
 Game = class('Game', StatefulObject)
 Game:includes(Beholder)
@@ -26,7 +26,7 @@ function Game:initialize()
 end
 
 function Game:toggleDebug()
-  debug = not debug
+  showDebugInfo = not showDebugInfo
 end
 
 local MainMenu = Game:addState('MainMenu')

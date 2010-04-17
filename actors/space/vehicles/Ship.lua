@@ -2,7 +2,6 @@ require('actors/Module.lua')
 require('actors/Slot.lua')
 require('actors/Vehicle.lua')
 require('mixins/PacManLike.lua')
-require('mixins/Orientable.lua')
 
 local _getTotalAttribute = function(self, baseValue, moduleMethod)
   local result = baseValue
@@ -22,7 +21,6 @@ end
 
 Ship = class('Ship', Vehicle)
 Ship:includes(PacManLike)
-Ship:includes(Orientable)
 
 function Ship:initialize(ai,x,y, cx,cy, shapes, slots, quad, options)
   super.initialize(self,ai, x,y, cx,cy, shapes, slots, quad)

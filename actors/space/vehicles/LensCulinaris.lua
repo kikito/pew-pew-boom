@@ -4,7 +4,7 @@ local image = passion.graphics.getImage('images/image.png')
 
 LensCulinaris = class('LensCulinaris', Ship)
 
-function LensCulinaris:initialize(ai, x, y)
+function LensCulinaris:initialize(ai, x, y, quadTree)
   super.initialize(self, ai, x,y, 16,16,
     -- Shapes
     { circle={0,0,16} },
@@ -16,6 +16,8 @@ function LensCulinaris:initialize(ai, x, y)
     },
     -- Quad
     passion.graphics.newQuad(image, 0,0, 32,32),
+    -- QuadTree
+    quadTree,
     -- Other stuff
     { baseThrust=0.01, baseStrafeThrust=0.01, baseRotation=0.5 }
   )

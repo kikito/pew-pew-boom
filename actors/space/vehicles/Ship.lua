@@ -22,8 +22,8 @@ end
 Ship = class('Ship', Vehicle)
 Ship:includes(PacManLike)
 
-function Ship:initialize(ai,x,y, cx,cy, shapes, slots, quad, options)
-  super.initialize(self,ai, x,y, cx,cy, shapes, slots, quad)
+function Ship:initialize(ai,x,y, cx,cy, shapes, slots, quad, quadTree, options)
+  super.initialize(self,ai, x,y, cx,cy, shapes, slots, quad, quadTree)
   self:setAngle(math.pi/2.0)
 
   options = options or {}
@@ -118,4 +118,6 @@ function Ship:update(dt)
   end
 
   self:pacManCheck()
+  
+  self.quadTree:update(self)
 end

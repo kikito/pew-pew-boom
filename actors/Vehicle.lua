@@ -3,6 +3,7 @@ require('mixins/BodyBuilder.lua')
 require('mixins/SlotBuilder.lua')
 require('mixins/DebugDraw.lua')
 require('mixins/HasGroupIndex.lua')
+require('mixins/InQuadTree.lua')
 
 Vehicle = class('Vehicle', passion.physics.Actor)
 
@@ -11,7 +12,7 @@ Vehicle:includes(SlotBuilder)
 Vehicle:includes(DebugDraw)
 Vehicle:includes(HasGroupIndex)
 
-function Vehicle:initialize(ai, x, y, cx, cy, shapes, slots, quad)
+function Vehicle:initialize(ai, x, y, cx, cy, shapes, slots, quad, quadTree)
   super.initialize(self)
   self.ai = ai
   if(ai~=nil) then ai:setVehicle(self) end
@@ -21,6 +22,8 @@ function Vehicle:initialize(ai, x, y, cx, cy, shapes, slots, quad)
   self:setPosition(x,y)
   self:setCenter(cx,cy)
   self.quad = quad
+  self.quadTree = quadTree
+  self.quadTree:insert(self)
 end
 
 function Vehicle:getSlot(slotName)
@@ -31,6 +34,11 @@ end
 
 function Vehicle:attach(slotName, module)
   self:getSlot(slotName):attach(module)
+end
+
+function Vehicle:destroy()
+  self.quadTree:remove(self)
+  super.destroy(self)
 end
 
 

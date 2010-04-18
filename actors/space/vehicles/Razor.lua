@@ -4,7 +4,7 @@ local image = passion.graphics.getImage('images/image.png')
 
 Razor = class('Razor', Ship)
 
-function Razor:initialize(ai, x, y)
+function Razor:initialize(ai, x, y, quadTree)
   super.initialize(self, ai, x,y, 16,16,
     -- Shapes
     { circle={0,0,16} },
@@ -15,6 +15,8 @@ function Razor:initialize(ai, x, y)
     },
     -- Quad
     passion.graphics.newQuad(image, 32,0, 32,32),
+    -- QuadTree
+    quadTree,
     -- Other stuff
     { baseThrust=0.05, baseStrafeThrust=0.03, baseRotation=1.2 }
   )

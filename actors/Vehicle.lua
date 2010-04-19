@@ -3,7 +3,6 @@ require('mixins/BodyBuilder.lua')
 require('mixins/SlotBuilder.lua')
 require('mixins/DebugDraw.lua')
 require('mixins/HasGroupIndex.lua')
-require('mixins/InQuadTree.lua')
 
 Vehicle = class('Vehicle', passion.physics.Actor)
 

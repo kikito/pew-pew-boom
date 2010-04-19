@@ -6,6 +6,7 @@ require('actors/space/modules/PlasmaCannons')
 require('actors/space/modules/Thrusters')
 require('actors/space/modules/Gyroscopes')
 require('actors/space/other/Asteroids')
+require('actors/FollowField')
 
 showDebugInfo = false
 
@@ -27,6 +28,9 @@ end
 
 function Game:toggleDebug()
   showDebugInfo = not showDebugInfo
+end
+
+function Game:draw()
 end
 
 local MainMenu = Game:addState('MainMenu')
@@ -69,7 +73,9 @@ local Play = Game:addState('Play')
 function Play:enterState()
 
   passion.physics.newWorld(3000, 3000)
-  self.ship = LensCulinaris:new(PlayerAI:new(), 100,100)
+  self.quadTree = passion.ai.QuadTree:new(3000, 3000)
+  self.ship = LensCulinaris:new(PlayerAI:new(), 100,100, self.quadTree)
+  self.field = FollowField:new(self.ship, 200, 200, self.quadTree)
 
   self.ship:attach('frontLeft', PlasmaCannon1:new() )
   self.ship:attach('frontRight', PlasmaCannon2:new())
@@ -94,11 +100,11 @@ function Play:enterState()
     table.insert(self.asteroids,
       asteroidClasses[math.random(1,#asteroidClasses)]:new(
         math.random(150, 650),
-        math.random(150, 450)
+        math.random(150, 450),
+        self.quadTree
       )
     )
   end
-
 end
 
 function Play:exitState()
@@ -111,4 +117,10 @@ function Play:exitState()
   self.asteroids = nil
 
   passion.destroyWorld()
+end
+
+function Play:draw()
+  if(showDebugInfo) then
+    game.quadTree:draw()
+  end
 end

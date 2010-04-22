@@ -5,11 +5,11 @@ require('mixins/DebugDraw')
 local twoPi = math.pi * 2.0
 
 local colors = {
-  passion.white,
-  passion.yellow,
-  passion.green,
-  passion.blue,
-  passion.red
+  passion.colors.white,
+  passion.colors.yellow,
+  passion.colors.green,
+  passion.colors.blue,
+  passion.colors.red
 }
 
 local rnd = math.random

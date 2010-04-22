@@ -98,7 +98,7 @@ function Ship:fire(slotNames)
 end
 
 function Ship:draw()
-  love.graphics.setColor(unpack(passion.white))
+  love.graphics.setColor(unpack(passion.colors.white))
   super.draw(self)
 end
 

@@ -9,7 +9,7 @@ function DebugDraw:draw()
   local cx, cy = self:getCenter()
   passion.graphics.drawq(self.quad, x, y, self:getAngle(), 1, 1, cx, cy)
   if(showDebugInfo==true) then
-    love.graphics.setColor(unpack(passion.lightGreen))
+    love.graphics.setColor(unpack(passion.colors.lightGreen))
     self:drawShapes()
     love.graphics.rectangle('line', self:getBoundingBox())
   end

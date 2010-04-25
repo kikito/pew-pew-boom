@@ -33,7 +33,7 @@ end
 
 function Field:draw()
   love.graphics.reset()
-  love.graphics.setColor(unpack(passion.red))
+  love.graphics.setColor(unpack(passion.colors.red))
   if(showDebugInfo) then
     love.graphics.rectangle('line', self:getBoundingBox())
   end

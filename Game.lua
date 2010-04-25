@@ -77,6 +77,9 @@ function Play:enterState()
   self.ship = LensCulinaris:new(PlayerAI:new(), 100,100, self.quadTree)
   self.field = FollowField:new(self.ship, 200, 200, self.quadTree)
 
+  passion.graphics.defaultCamera:observe('mousepressed_wd', function(self) self:scale(0.9, 0.9) end)
+  passion.graphics.defaultCamera:observe('mousepressed_wu', function(self) self:scale(1.1, 1.1) end)
+
   self.ship:attach('frontLeft', PlasmaCannon1:new() )
   self.ship:attach('frontRight', PlasmaCannon2:new())
   self.ship:attach('utility', Gyroscope1:new())
@@ -99,8 +102,8 @@ function Play:enterState()
   for i=1,20 do
     table.insert(self.asteroids,
       asteroidClasses[math.random(1,#asteroidClasses)]:new(
-        math.random(150, 650),
-        math.random(150, 450),
+        math.random(150, 3000-150),
+        math.random(150, 3000-150),
         self.quadTree
       )
     )
@@ -121,6 +124,7 @@ end
 
 function Play:draw()
   if(showDebugInfo) then
-    game.quadTree:draw()
+    love.graphics.setColor(unpack(passion.colors.gray))
+    passion.graphics.defaultCamera:draw(game.quadTree)
   end
 end

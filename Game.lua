@@ -39,7 +39,8 @@ function MainMenu:enterState()
   self.title = passion.gui.Label:new({
     text='pew pew BOOM!', 
     x=200, y=20, width=400, align='center',
-    font=Game.fonts.title
+    font=Game.fonts.title,
+    alpha=0
   })
 
   self.startButton = passion.gui.Button:new({
@@ -47,7 +48,8 @@ function MainMenu:enterState()
     x=150, y=200, width=500, valign='center',
     cornerRadius=10,
     font=Game.fonts.button,
-    onClick = function(b) game:gotoState('Play') end
+    onClick = function(b) game:gotoState('Play') end,
+    alpha=0
   })
 
   self.exitButton = passion.gui.Button:new({
@@ -55,8 +57,13 @@ function MainMenu:enterState()
     x=150, y=400, width=500,
     cornerRadius=10,
     font=Game.fonts.button,
-    onClick = function(b) passion.exit() end
+    onClick = function(b) passion.exit() end,
+    alpha=0
   })
+  
+  self.title:fadeIn(2)
+  self.startButton:fadeIn(2)
+  self.exitButton:fadeIn(2)
 end
 
 function MainMenu:exitState()
@@ -72,7 +79,7 @@ local Play = Game:addState('Play')
 
 function Play:enterState()
 
-  passion.physics.newWorld(3000, 3000)
+  passion.physics.newWorld(3050, 3050)
   self.quadTree = passion.ai.QuadTree:new(3000, 3000)
   self.ship = LensCulinaris:new(PlayerAI:new(), 100,100, self.quadTree)
   self.field = FollowField:new(self.ship, 200, 200, self.quadTree)
@@ -99,7 +106,7 @@ function Play:enterState()
 
   self.asteroids = {}
 
-  for i=1,20 do
+  for i=1,50 do
     table.insert(self.asteroids,
       asteroidClasses[math.random(1,#asteroidClasses)]:new(
         math.random(150, 3000-150),

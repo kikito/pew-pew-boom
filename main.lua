@@ -2,6 +2,8 @@
 
 require('passion.init')
 require('Game')
+require('Game_MainMenu.lua')
+require('Game_Play.lua')
 
 function love.load()
   math.randomseed( os.time() )

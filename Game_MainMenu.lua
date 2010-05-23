@@ -17,7 +17,7 @@ function MainMenu:enterState()
   self.startButton = passion.gui.Button:new({
     text='pew pew',
     x=150, y=200, width=500, valign='center',
-    cornerRadius=10,
+    cornerRadius=10, padding=10,
     font=Game.fonts.button,
     onClick = function(b) game:gotoState('Play') end,
     alpha=0
@@ -26,7 +26,7 @@ function MainMenu:enterState()
   self.exitButton = passion.gui.Button:new({
     text='BOOM!',
     x=150, y=400, width=500,
-    cornerRadius=10,
+    cornerRadius=10, padding=10,
     font=Game.fonts.button,
     onClick = function(b) passion.exit() end,
     alpha=0

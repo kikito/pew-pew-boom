@@ -14,3 +14,8 @@ function love.draw()
   passion.draw()
   game:draw()
 end
+
+function love.update(dt)
+  passion.update(dt)
+  game:update(dt)
+end

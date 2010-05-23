@@ -3,6 +3,8 @@ require('mixins/BodyBuilder.lua')
 require('mixins/SlotBuilder.lua')
 require('mixins/DebugDraw.lua')
 require('mixins/HasGroupIndex.lua')
+require('mixins/AutoCamerable.lua')
+
 
 Vehicle = class('Vehicle', passion.physics.Actor)
 
@@ -10,6 +12,7 @@ Vehicle:includes(BodyBuilder)
 Vehicle:includes(SlotBuilder)
 Vehicle:includes(DebugDraw)
 Vehicle:includes(HasGroupIndex)
+Vehicle:includes(AutoCamerable)
 
 function Vehicle:initialize(ai, x, y, cx, cy, shapes, slots, quad, quadTree)
   super.initialize(self)

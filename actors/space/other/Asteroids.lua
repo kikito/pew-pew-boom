@@ -1,6 +1,7 @@
 require('mixins/PacManLike')
 require('mixins/BodyBuilder')
 require('mixins/DebugDraw')
+require('mixins/AutoCamerable')
 
 local twoPi = math.pi * 2.0
 
@@ -18,6 +19,7 @@ Asteroid = class('Asteroid', passion.physics.Actor)
 Asteroid:includes(PacManLike)
 Asteroid:includes(BodyBuilder)
 Asteroid:includes(DebugDraw)
+Asteroid:includes(AutoCamerable)
 
 local image = passion.graphics.getImage('images/image.png')
 
@@ -37,7 +39,6 @@ end
 
 function Asteroid:update(dt)
   self:pacManCheck()
-  self.quadTree:update(self)
 end
 
 function Asteroid:destroy()

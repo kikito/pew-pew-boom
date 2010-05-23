@@ -1,9 +1,11 @@
 require('mixins/DebugDraw')
 require('mixins/HasGroupIndex')
+require('mixins/AutoCamerable')
 
 Module = class('Module', passion.physics.Actor)
 Module:includes(DebugDraw)
 Module:includes(HasGroupIndex)
+Module:includes(AutoCamerable)
 
 function Module:initialize(centerX, centerY, quad)
   super.initialize(self)
@@ -18,6 +20,7 @@ function Module:attach(slot)
   self.slot = slot
   self.vehicle = slot.vehicle
   self:setGroupIndex(self.vehicle:getGroupIndex())
+  self.quadTree = self.vehicle.quadTree
 end
 
 function Module:getDrawOrder()

@@ -1,4 +1,7 @@
+require('mixins/AutoCamerable')
+
 Field = class('Field', passion.Actor)
+Field:includes(AutoCamerable)
 
 function Field:initialize(x,y,width,height,quadTree)
   super.initialize(self)

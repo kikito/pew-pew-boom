@@ -16,3 +16,6 @@ end
 
 function Game:draw()
 end
+
+function Game:update()
+end

@@ -14,7 +14,7 @@ function Weapon:fire()
   local x,y=self:getPosition()
   local angle = self:getAngle()
 
-  self.projectileClass:new(x,y,velX,velY,angle,self:getGroupIndex())
+  self.projectileClass:new(x,y,velX,velY,angle,self:getGroupIndex(),self.quadTree)
   passion.audio.play(self.source)
 
   self:pushState('CoolingDown')

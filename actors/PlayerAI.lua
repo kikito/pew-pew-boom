@@ -31,7 +31,7 @@ function PlayerAI:getStrafeDirection()
 end
 
 function PlayerAI:getRotationDirection()
-  return self:orientateTowards(passion.graphics.defaultCamera:invert(love.mouse.getPosition()))
+  return self:orientateTowards(autoCamera:invert(love.mouse.getPosition()))
 end
 
 function PlayerAI:getWeaponsFired()

@@ -118,6 +118,4 @@ function Ship:update(dt)
   end
 
   self:pacManCheck()
-  
-  self.quadTree:update(self)
 end

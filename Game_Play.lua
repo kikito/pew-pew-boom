@@ -6,6 +6,7 @@ require('actors/space/modules/Thrusters')
 require('actors/space/modules/Gyroscopes')
 require('actors/space/other/Asteroids')
 require('actors/FollowField')
+require('actors/AutoCamera')
 
 local Play = Game:addState('Play')
 
@@ -16,8 +17,7 @@ function Play:enterState()
   self.ship = LensCulinaris:new(PlayerAI:new(), 100,100, self.quadTree)
   self.field = FollowField:new(self.ship, 200, 200, self.quadTree)
 
-  passion.graphics.defaultCamera:observe('mousepressed_wd', function(self) self:scale(0.9, 0.9) end)
-  passion.graphics.defaultCamera:observe('mousepressed_wu', function(self) self:scale(1.1, 1.1) end)
+  autoCamera = AutoCamera:new(self.ship)
 
   self.ship:attach('frontLeft', PlasmaCannon1:new() )
   self.ship:attach('frontRight', PlasmaCannon2:new())
@@ -50,6 +50,10 @@ function Play:enterState()
 end
 
 function Play:exitState()
+  
+  autoCamera:destroy()
+  autoCamera = nil
+
   self.ship:destroy()
   self.ship = nil
 
@@ -64,6 +68,20 @@ end
 function Play:draw()
   if(showDebugInfo) then
     love.graphics.setColor(unpack(passion.colors.gray))
-    passion.graphics.defaultCamera:draw(game.quadTree)
+    autoCamera:draw(game.quadTree)
   end
+  autoCamera:set()
+  local mx, my = autoCamera:invert(love.mouse.getPosition())
+  love.graphics.circle('fill', mx, my, 5, 15)
+  autoCamera:unset()
+  --[[autoCamera.parent:set()
+  mx, my = autoCamera.parent:invert(love.mouse.getPosition())
+  love.graphics.circle('fill', mx, my, 5, 15)
+  autoCamera.parent:unset()
+  ]]
+  
+end
+
+function Play:update(dt)
+  self.quadTree:update()
 end
